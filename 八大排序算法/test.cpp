@@ -57,7 +57,7 @@ vector<int> Bubble_1(vector<int> array) {
 
 int PartSort1(vector<int>& array, int left, int right){
 	//左右指针法
-	int& temp = array[right];
+	int& temp = array[right];		//最右边的数字作为基准值
 	while (left < right){
 		while (left < right && array[left] <= temp){
 			left++;
@@ -71,6 +71,23 @@ int PartSort1(vector<int>& array, int left, int right){
 	return left;
 }
 
+int PartSort2(vector<int>& array, int left, int right){
+	//挖坑法
+	int temp = array[right];
+	while (left < right){
+		while (left < right && array[left] < temp){
+			left++;
+		}
+		array[right] = array[left];
+		while (left < right && array[right] > temp){
+			right--;
+		}
+		array[left] = array[right];
+	}
+	array[right] = temp;
+	return right;
+}
+
 void QuickSort(vector<int>& array, int left, int right){
 	if (array.empty()){
 		return;
@@ -79,7 +96,7 @@ void QuickSort(vector<int>& array, int left, int right){
 		//表明已经排序完毕
 		return;
 	}
-	int index = PartSort1(array, left, right);
+	int index = PartSort2(array, left, right);
 	QuickSort(array, left, index - 1);
 	QuickSort(array, index + 1, right);
 }
