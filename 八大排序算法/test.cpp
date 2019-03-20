@@ -38,6 +38,24 @@ vector<int> BubbleSort(vector<int> array){
 	return array;
 }
 
+
+vector<int> Bubble_1(vector<int> array) {
+	int i = array.size() - 1;  //初始时,最后位置保持不变
+	while (i> 0) {
+		int pos = 0; //每趟开始时,无记录交换
+		for (int j = 0; j< i; j++)
+		if (array[j]> array[j + 1]) {
+			pos = j; //记录交换的位置 
+			int tmp = array[j]; array[j] = array[j + 1]; array[j + 1] = tmp;
+		}
+		i = pos; //为下一趟排序作准备
+	}
+	return array;
+}
+
+
+//
+
 int main(){
 	vector<int> array = { 0, 4, 5, 3, 6, 7, 1, 8, 2, 9 };
 	/*array = InsertSort(array);
@@ -45,7 +63,7 @@ int main(){
 		cout << array[i] << " " ;
 	}*/
 	
-	array = BubbleSort(array);
+	array = Bubble_1(array);
 	for (int i = 0; i < array.size(); ++i){
 		cout << array[i] << " ";
 	}
