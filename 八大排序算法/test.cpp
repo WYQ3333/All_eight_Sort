@@ -101,6 +101,24 @@ void QuickSort(vector<int>& array, int left, int right){
 	QuickSort(array, index + 1, right);
 }
 
+//—°‘Ò≈≈–Ú
+void SelectSort(vector<int>& array){
+	for (int i = 0; i < array.size(); ++i){
+		int min = array[i];
+		int index = i;
+		for (int j = i + 1; j < array.size(); ++j){
+			if (array[j] < min){
+				min = array[j];
+				index = j;
+			}
+		}
+		if (index != i){
+			array[index] = array[i];
+			array[i] = min;
+		}
+	}
+}
+
 int main(){
 	vector<int> array = { 0, 4, 5, 3, 6, 7, 1, 8, 2, 9 };
 	/*array = InsertSort(array);
@@ -113,7 +131,12 @@ int main(){
 		cout << array[i] << " ";
 	}*/
 
-	QuickSort(array, 0, array.size() - 1);
+	/*QuickSort(array, 0, array.size() - 1);
+	for (int i = 0; i < array.size(); ++i){
+		cout << array[i] << " ";
+	}*/
+
+	SelectSort(array);
 	for (int i = 0; i < array.size(); ++i){
 		cout << array[i] << " ";
 	}
