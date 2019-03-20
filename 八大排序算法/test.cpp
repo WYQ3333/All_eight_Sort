@@ -44,17 +44,45 @@ vector<int> Bubble_1(vector<int> array) {
 	while (i> 0) {
 		int pos = 0; //每趟开始时,无记录交换
 		for (int j = 0; j< i; j++)
-		if (array[j]> array[j + 1]) {
-			pos = j; //记录交换的位置 
-			int tmp = array[j]; array[j] = array[j + 1]; array[j + 1] = tmp;
-		}
+			if (array[j]> array[j + 1]) {
+				pos = j; //记录交换的位置 
+				int tmp = array[j]; array[j] = array[j + 1]; array[j + 1] = tmp;
+			}
 		i = pos; //为下一趟排序作准备
 	}
 	return array;
 }
 
+//快速排序
 
-//
+int PartSort1(vector<int>& array, int left, int right){
+	//左右指针法
+	int& temp = array[right];
+	while (left < right){
+		while (left < right && array[left] <= temp){
+			left++;
+		}
+		while (left < right && array[right] >= temp){
+			right--;
+		}
+		swap(array[left], array[right]);
+	}
+	swap(array[left], temp);
+	return left;
+}
+
+void QuickSort(vector<int>& array, int left, int right){
+	if (array.empty()){
+		return;
+	}
+	if (left > right){
+		//表明已经排序完毕
+		return;
+	}
+	int index = PartSort1(array, left, right);
+	QuickSort(array, left, index - 1);
+	QuickSort(array, index + 1, right);
+}
 
 int main(){
 	vector<int> array = { 0, 4, 5, 3, 6, 7, 1, 8, 2, 9 };
@@ -63,7 +91,12 @@ int main(){
 		cout << array[i] << " " ;
 	}*/
 	
-	array = Bubble_1(array);
+	/*array = Bubble_1(array);
+	for (int i = 0; i < array.size(); ++i){
+		cout << array[i] << " ";
+	}*/
+
+	QuickSort(array, 0, array.size() - 1);
 	for (int i = 0; i < array.size(); ++i){
 		cout << array[i] << " ";
 	}
